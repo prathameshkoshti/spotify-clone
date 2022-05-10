@@ -1,0 +1,15 @@
+.song-progress {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.08);
+  height: 6px;
+  margin: 3rem 0 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.song-progress-bar {
+  background-color: #fff;
+  height: 6px;
+  width: 6px;
+  border-radius: 6px;
+}

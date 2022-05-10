@@ -1,0 +1,30 @@
+.player {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  padding: 2rem;
+  margin: 0 auto;
+  flex: 1;
+  max-width: 400px;
+}
+
+.player > .song-name > h1 {
+  margin-bottom: 0;
+}
+
+.player > .song-artist {
+  opacity: 0.6;
+  margin-bottom: 2.5rem;
+}
+
+.player > .song-cover-art {
+  overflow: hidden;
+  width: 400px;
+  height: 400px;
+  border-radius: 0.5rem;
+}
+
+.player > .song-cover-art > img {
+  width: 100%;
+}

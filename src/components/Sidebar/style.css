@@ -1,0 +1,19 @@
+.playlists {
+  width: 300px;
+  cursor: pointer;
+}
+
+.playlist {
+  font-size: 1.25rem;
+  opacity: 0.4;
+  padding: 1rem 0;
+  transition: var(--transition);
+}
+
+.playlist:hover {
+  opacity: 0.65;
+}
+
+.playlist.selected {
+  opacity: 1;
+}

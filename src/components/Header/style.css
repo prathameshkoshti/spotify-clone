@@ -1,0 +1,8 @@
+.header {
+  height: 100vh;
+  padding: 0rem 2rem;
+}
+
+.header > .logo {
+  padding: 2rem 0;
+}

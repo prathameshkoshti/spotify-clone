@@ -1,0 +1,72 @@
+.player-controls {
+  display: flex;
+  justify-content: space-between;
+  margin: 3rem 0;
+}
+
+.player-controls button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: transparent;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.player-controls button > svg {
+  position: relative;
+}
+
+.song-controls {
+  display: flex;
+}
+
+.player-controls button.primary {
+  background-color: #fff;
+  color: #222;
+  margin: 0 1rem;
+}
+
+.player-controls button.secondary {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.player-controls button.tertiary {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.player-controls button.primary:hover {
+  color: #fff;
+  background-color: #222;
+}
+
+.player-controls button.secondary:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.player-controls button.tertiary:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.player-controls button:active {
+  transform: scale(0.9);
+}
+
+.play-pause > svg {
+  left: 1px
+}
+
+.previous > svg {
+  left: -1px
+}
+
+.next > svg {
+  left: 1px
+}

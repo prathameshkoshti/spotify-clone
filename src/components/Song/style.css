@@ -1,0 +1,39 @@
+.song {
+  display: flex;
+  padding: 1.25rem;
+  align-items: center;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.song:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.song > .song-album-art > img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.song > .song-info {
+  flex: 1;
+}
+
+.song > .song-info > .song-title {
+  font-size: 1.1rem;
+}
+
+.song > .song-info > .song-artist {
+  opacity: 0.6;
+}
+
+.song > .song-duration {
+  justify-self: flex-end;
+}
+
+.song.currently-playing {
+  background-color: rgba(255, 255, 255, 0.08);;
+}

@@ -1,0 +1,25 @@
+:root {
+  --transition: all 0.3s ease-in-out;
+}
+
+::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 0.5rem;
+}
+
+body {
+  background-color: black;
+  color: white;
+  font-family: BasierCircle;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.App {
+  display: flex;
+  max-height: 100vh;
+}
