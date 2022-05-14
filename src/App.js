@@ -22,6 +22,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       const query = `
         query {
           getPlaylists {
@@ -33,6 +34,7 @@ function App() {
       const variables = {};
       const response = await axios.post(url, { query, variables });
       setPlaylists(response.data.data.getPlaylists);
+      setIsLoading(false);
     })();
   }, []);
 
