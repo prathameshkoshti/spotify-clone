@@ -6,33 +6,37 @@ import {
   faBackward,
   faForward,
   faVolumeHigh,
+  faVolumeMute,
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
 
-export default function index({ playSong, playNextSong, playPreviousSong }) {
+export default function index({
+  togglePlayback,
+  playNextSong,
+  playPreviousSong,
+  isPlaying,
+  toggleVolume,
+  isMuted,
+}) {
   return (
     <div className="player-controls">
       <button className="tertiary">
         <FontAwesomeIcon size="lg" icon={faEllipsis} onClick={() => {}} />
       </button>
       <div className="song-controls">
-        <button className="secondary previous">
-          <FontAwesomeIcon
-            size="lg"
-            icon={faBackward}
-            onClick={playPreviousSong}
-          />
+        <button className="secondary previous" onClick={playPreviousSong}>
+          <FontAwesomeIcon size="lg" icon={faBackward} />
         </button>
-        <button className="primary play-pause">
-          <FontAwesomeIcon size="lg" icon={faPlay} onClick={playSong} />
+        <button className="primary play-pause" onClick={togglePlayback}>
+          <FontAwesomeIcon size="lg" icon={isPlaying ? faPause : faPlay} />
         </button>
-        <button className="secondary next">
-          <FontAwesomeIcon size="lg" icon={faForward} onClick={playNextSong} />
+        <button className="secondary next" onClick={playNextSong}>
+          <FontAwesomeIcon size="lg" icon={faForward} />
         </button>
       </div>
-      <button className="tertiary">
-        <FontAwesomeIcon size="lg" icon={faVolumeHigh} onClick={playSong} />
+      <button className="tertiary" onClick={toggleVolume}>
+        <FontAwesomeIcon size="lg" icon={isMuted ? faVolumeMute: faVolumeHigh} />
       </button>
     </div>
   );

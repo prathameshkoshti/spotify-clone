@@ -90,7 +90,11 @@ function App() {
         <Queue currentPlaylist={currentPlaylist} playSong={playSong} />
       )}
       {currentSong && (
-        <Player song={currentSong} currentPlaylist={currentPlaylist} />
+        <Player
+          song={currentSong}
+          currentPlaylist={currentPlaylist}
+          playSong={playSong}
+        />
       )}
     </div>
   );
