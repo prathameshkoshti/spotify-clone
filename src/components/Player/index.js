@@ -33,7 +33,10 @@ export default function Index({ song, currentPlaylist, playSong }) {
     const nextSongIndex = currentSongIndex + 1;
     playSong(currentPlaylist.songs[nextSongIndex]);
     setURL(currentPlaylist.songs[nextSongIndex].url);
+    audioRef.current.currentTime = 0;
+    audioRef.current.play();
   };
+
   const playPreviousSong = () => {
     const currentSongIndex = currentPlaylist.songs.findIndex(
       (s) => s._id === song._id
@@ -41,18 +44,15 @@ export default function Index({ song, currentPlaylist, playSong }) {
     const prevSongIndex = currentSongIndex - 1;
     playSong(currentPlaylist.songs[prevSongIndex]);
     setURL(currentPlaylist.songs[prevSongIndex].url);
+    audioRef.current.currentTime = 0;
+    audioRef.current.play();
   };
 
   useEffect(() => {
     if (audioRef && audioRef.current) {
       audioRef.current.addEventListener("ended", playNextSong);
     }
-    return () => {
-      if (audioRef && audioRef.current) {
-        audioRef.current.removeEventListener("ended", playNextSong);
-      }
-    };
-  }, [audioRef.current]);
+  }, [audioRef]);
 
   useEffect(() => {
     setURL(song.url);
@@ -62,7 +62,7 @@ export default function Index({ song, currentPlaylist, playSong }) {
     if (audioRef && audioRef.current) {
       audioRef.current.muted = isMuted;
     }
-  }, [isMuted])
+  }, [isMuted]);
 
   return (
     <div className="player">
