@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import Queue from "./components/Queue";
 import Player from "./components/Player";
+import Loader from "./components/Loader";
 import axios from "axios";
 
 const url = "https://api.ss.dev/resource/api";
@@ -11,6 +12,7 @@ const url = "https://api.ss.dev/resource/api";
 function App() {
   const [playlists, setPlaylists] = useState([]);
   const [playlistSongs, setPlaylistSongs] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const [currentPlaylist, setCurrentPlaylist] = useState({
     playlist: {},
@@ -46,18 +48,19 @@ function App() {
       });
     } else {
       (async () => {
+        setIsLoading(true);
         const query = `
-          query ExampleQuery($playlistId: Int!) {
-            getSongs(playlistId: $playlistId) {
-              _id
-              title
-              photo
-              url
-              duration
-              artist
+            query ExampleQuery($playlistId: Int!) {
+              getSongs(playlistId: $playlistId) {
+                _id
+                title
+                photo
+                url
+                duration
+                artist
+              }
             }
-          }
-        `;
+          `;
         const variables = {
           playlistId: 1,
         };
@@ -71,6 +74,7 @@ function App() {
           playlist,
           songs: response.data.data.getSongs,
         });
+        setIsLoading(false);
       })();
     }
   };
@@ -96,6 +100,7 @@ function App() {
           playSong={playSong}
         />
       )}
+      {isLoading && <Loader />}
     </div>
   );
 }

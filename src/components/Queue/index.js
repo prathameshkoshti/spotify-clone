@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Song from "../Song";
+import Loader from "../Loader";
 import "./style.css";
 
-function Index({ currentPlaylist, playSong }) {
+function Index({ currentPlaylist, playSong, isLoading }) {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [songs, setSongs] = useState([]);
 
@@ -37,11 +38,14 @@ function Index({ currentPlaylist, playSong }) {
           placeholder="Search Song, Artist"
         />
       </div>
-      <div className="songs-queue">
-        {songs.map((song, index) => (
-          <Song key={song._id} song={song} playSong={playSong} />
-        ))}
-      </div>
+      {isLoading && <Loader />}
+      {songs && (
+        <div className="songs-queue">
+          {songs.map((song, index) => (
+            <Song key={song._id} song={song} playSong={playSong} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
