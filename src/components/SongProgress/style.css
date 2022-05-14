@@ -4,23 +4,17 @@
   height: 6px;
   margin: 3rem 0 0;
   border-radius: 6px;
+  overflow: hidden;
 }
 
 .song-progress-bar {
   background-color: #fff;
   height: 6px;
-  width: 6px;
+  width: 100%;
+  transform: scaleX(0);
   border-radius: 6px;
   position: relative;
-}
-
-.progress-dragger {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #fff;
-  border-radius: 50%;
-  cursor: pointer;
-  left: -3px;
-  top: -3px;
+  transition: all 250ms linear;
+  transform-origin: 0 0;
+  border-radius: 6px;
 }

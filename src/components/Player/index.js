@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import PlayerControls from "../PlayerControls";
 import SongProgress from "../SongProgress";
 import AudioPlayer from "../AudioPlayer";
@@ -9,6 +9,7 @@ export default function Index({ song, currentPlaylist, playSong }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [url, setURL] = useState("");
   const [isMuted, setIsMuted] = useState(false);
+  const [progress, setProgress] = useState(0.0);
 
   const togglePlayback = () => {
     if (audioRef.current.paused) {
@@ -26,7 +27,7 @@ export default function Index({ song, currentPlaylist, playSong }) {
     }
   };
 
-  const playNextSong = () => {
+  const playNextSong = useCallback(() => {
     const currentSongIndex = currentPlaylist.songs.findIndex(
       (s) => s._id === song._id
     );
@@ -35,8 +36,7 @@ export default function Index({ song, currentPlaylist, playSong }) {
     setURL(currentPlaylist.songs[nextSongIndex].url);
     audioRef.current.currentTime = 0;
     audioRef.current.play();
-  };
-
+  });
   const playPreviousSong = () => {
     const currentSongIndex = currentPlaylist.songs.findIndex(
       (s) => s._id === song._id
@@ -51,8 +51,14 @@ export default function Index({ song, currentPlaylist, playSong }) {
   useEffect(() => {
     if (audioRef && audioRef.current) {
       audioRef.current.addEventListener("ended", playNextSong);
+      audioRef.current.addEventListener("timeupdate", () => {
+        if (audioRef?.current?.currentTime && audioRef?.current?.duration) {
+          setProgress((audioRef.current.currentTime + 0.25) /
+          audioRef.current.duration);
+        }
+      });
     }
-  }, [audioRef]);
+  }, [audioRef, playNextSong]);
 
   useEffect(() => {
     setURL(song.url);
@@ -74,7 +80,7 @@ export default function Index({ song, currentPlaylist, playSong }) {
       <div className="song-cover-art">
         <img src={song.photo} alt={song.title} />
       </div>
-      <SongProgress />
+      <SongProgress progress={progress} />
       <PlayerControls
         isPlaying={isPlaying}
         togglePlayback={togglePlayback}
