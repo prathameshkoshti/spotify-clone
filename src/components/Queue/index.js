@@ -39,6 +39,10 @@ function Index({ currentPlaylist, playSong, isLoading }) {
     }
   }, [currentPlaylist.songs, searchKeyword]);
 
+  useEffect(() => {
+    setIsQueueOpen(true);
+  }, [currentPlaylist]);
+
   return (
     <div className={`queue ${isQueueOpen ? "open" : ""}`}>
       <div className="open-queue" onClick={toggleQueue}>
