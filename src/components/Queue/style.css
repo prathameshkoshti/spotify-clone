@@ -46,7 +46,7 @@
 }
 
 .open-queue {
-  padding: 1.75rem;
+  padding: 1rem;
   display: flex;
   justify-content: center;
   font-size: 1.5rem;
@@ -88,13 +88,13 @@
       transform: translateY(0%);
     }
     100% {
-      transform: translateY(calc(100% - 160px));
+      transform: translateY(calc(100% - 140px));
     }
   }
 
   @keyframes open-queue {
     0% {
-      transform: translateY(calc(100% - 160px));
+      transform: translateY(calc(100% - 140px));
     }
 
     100% {
