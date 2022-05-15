@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import uuid from "react-uuid";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -21,7 +21,27 @@ body {
 
 .App {
   display: flex;
-  max-height: 100vh;
+  height: 100vh;
+  position: relative;
+}
+
+.background-gradient, .background-gradient-transiting {
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.background-gradient-transiting {
+  z-index: -1;
+  opacity: 1;
+  animation: fade-in 0.3s ease-in-out forwards;
+}
+
+.fade {
+  animation: fade-out 0.3s ease-in-out forwards;
 }
 
 .queue-player-wrapper {
@@ -32,5 +52,23 @@ body {
 @media screen and (max-width: 991px) {
   .App {
     display: block;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

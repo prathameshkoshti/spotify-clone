@@ -6,6 +6,7 @@ import Queue from "./components/Queue";
 import Player from "./components/Player";
 import Loader from "./components/Loader";
 import axios from "axios";
+import ColorThief from "../node_modules/colorthief/dist/color-thief.mjs";
 
 const url = "https://api.ss.dev/resource/api";
 
@@ -13,6 +14,9 @@ function App() {
   const [playlists, setPlaylists] = useState([]);
   const [playlistSongs, setPlaylistSongs] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [colorGradient, setColorGradient] = useState([]);
+  const [colorGradientCopy, setColorGradientCopy] = useState([]);
+  const [makeTransition, setMakeTransition] = useState(false);
 
   const [currentPlaylist, setCurrentPlaylist] = useState({
     playlist: {},
@@ -85,6 +89,31 @@ function App() {
     setCurrentSong(song);
   };
 
+  useEffect(() => {
+    if (currentSong) {
+      const colorThief = new ColorThief();
+      const img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.src = currentSong.photo;
+
+      img.addEventListener("load", function () {
+        const color = colorThief.getColor(img);
+        const grad1 = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.9)`;
+        const grad2 = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.3)`;
+        setColorGradient([grad1, grad2]);
+      });
+    }
+  }, [currentSong]);
+
+  useEffect(() => {
+    setMakeTransition(true);
+
+    setTimeout(() => {
+      setColorGradientCopy(colorGradient);
+      setMakeTransition(false);
+    }, 500);
+  }, [colorGradient]);
+
   return (
     <div className="App">
       <Header
@@ -105,6 +134,20 @@ function App() {
         )}
         {isLoading && <Loader />}
       </div>
+      <div
+        className="background-gradient"
+        style={{
+          background: `linear-gradient(145deg, ${colorGradient[0]}, ${colorGradient[1]})`,
+        }}
+      ></div>
+      <div
+        className={`background-gradient-transiting ${
+          makeTransition ? "fade" : ""
+        }`}
+        style={{
+          background: `linear-gradient(145deg, ${colorGradientCopy[0]}, ${colorGradientCopy[1]})`,
+        }}
+      ></div>
     </div>
   );
 }

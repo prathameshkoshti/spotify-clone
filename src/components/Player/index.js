@@ -4,7 +4,7 @@ import SongProgress from "../SongProgress";
 import AudioPlayer from "../AudioPlayer";
 import "./style.css";
 
-export default function Index({ song, currentPlaylist, playSong }) {
+export default function Index({ song, currentPlaylist, playSong, getColors }) {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [url, setURL] = useState("");
@@ -53,8 +53,9 @@ export default function Index({ song, currentPlaylist, playSong }) {
       audioRef.current.addEventListener("ended", playNextSong);
       audioRef.current.addEventListener("timeupdate", () => {
         if (audioRef?.current?.currentTime && audioRef?.current?.duration) {
-          setProgress((audioRef.current.currentTime + 0.25) /
-          audioRef.current.duration);
+          setProgress(
+            (audioRef.current.currentTime + 0.25) / audioRef.current.duration
+          );
         }
       });
     }
