@@ -2,14 +2,21 @@ import React, { useState, useEffect } from "react";
 import Song from "../Song";
 import Loader from "../Loader";
 import "./style.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function Index({ currentPlaylist, playSong, isLoading }) {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [songs, setSongs] = useState([]);
+  const [isQueueOpen, setIsQueueOpen] = useState(false);
 
   const handleSearchField = (event) => {
     const { value } = event.target;
     setSearchKeyword(value);
+  };
+
+  const toggleQueue = () => {
+    setIsQueueOpen(!isQueueOpen);
   };
 
   useEffect(() => {
@@ -29,7 +36,12 @@ function Index({ currentPlaylist, playSong, isLoading }) {
 
   return (
     <div className="queue">
-      <h1 className="playlist-name">{currentPlaylist.playlist.title}</h1>
+      <div className="queue-header">
+        <h1 className="playlist-name">{currentPlaylist.playlist.title}</h1>
+        <div className="close-queue" onClick={toggleQueue}>
+          <FontAwesomeIcon size="lg" icon={faTimes} />
+        </div>
+      </div>
       <div className="textfield-wrapper">
         <input
           className="search-song-textfield"
@@ -41,7 +53,7 @@ function Index({ currentPlaylist, playSong, isLoading }) {
       {isLoading && <Loader />}
       {songs && (
         <div className="songs-queue">
-          {songs.map((song, index) => (
+          {songs.map((song) => (
             <Song key={song._id} song={song} playSong={playSong} />
           ))}
         </div>

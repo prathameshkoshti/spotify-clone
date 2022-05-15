@@ -6,7 +6,7 @@
   padding: 2rem;
   margin: 0 auto;
   flex: 1 1 auto;
-  max-width: 480px;
+  max-width: 40vh;
 }
 
 .player > .song-name > h1 {
@@ -19,8 +19,10 @@
 }
 
 .player > .song-cover-art {
-  max-width: 480px;
-  height: auto;
+  width: 40vh;
+  height: 40vh;
+  overflow: hidden;
+  border-radius: 0.5rem;
 }
 
 .player > .song-cover-art > img {
@@ -30,4 +32,11 @@
 
 .audio-player {
   display: none;
+}
+
+@media screen and (max-width: 991px) {
+  .player {
+    padding: 0;
+    height: calc(100vh - 80px);
+  }
 }

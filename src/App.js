@@ -1,6 +1,6 @@
 import "./styles/fonts.css";
 import "./styles/App.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Queue from "./components/Queue";
 import Player from "./components/Player";
@@ -92,17 +92,19 @@ function App() {
         handlePlaylistClick={handlePlaylistClick}
         currentPlaylistId={currentPlaylist.playlist.id}
       />
-      {currentPlaylist.playlist?.id && (
-        <Queue currentPlaylist={currentPlaylist} playSong={playSong} />
-      )}
-      {currentSong && (
-        <Player
-          song={currentSong}
-          currentPlaylist={currentPlaylist}
-          playSong={playSong}
-        />
-      )}
-      {isLoading && <Loader />}
+      <div className="queue-player-wrapper">
+        {currentPlaylist.playlist?.id && (
+          <Queue currentPlaylist={currentPlaylist} playSong={playSong} />
+        )}
+        {currentSong && (
+          <Player
+            song={currentSong}
+            currentPlaylist={currentPlaylist}
+            playSong={playSong}
+          />
+        )}
+        {isLoading && <Loader />}
+      </div>
     </div>
   );
 }
