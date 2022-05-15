@@ -1,16 +1,18 @@
-import "./styles/fonts.css";
-import "./styles/App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import Queue from "./components/Queue";
 import Player from "./components/Player";
 import Loader from "./components/Loader";
 import axios from "axios";
 import ColorThief from "../node_modules/colorthief/dist/color-thief.mjs";
+import "./styles/fonts.css";
+import "./styles/App.css";
 
 const url = "https://api.ss.dev/resource/api";
 
 function App() {
+  const audioRef = useRef(null);
+  const albumArtRef = useRef(null);
   const [playlists, setPlaylists] = useState([]);
   const [playlistSongs, setPlaylistSongs] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -91,6 +93,11 @@ function App() {
 
   useEffect(() => {
     if (currentSong) {
+      if (audioRef && audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play();
+      }
+
       const colorThief = new ColorThief();
       const img = new Image();
       img.crossOrigin = "Anonymous";
@@ -111,7 +118,7 @@ function App() {
     setTimeout(() => {
       setColorGradientCopy(colorGradient);
       setMakeTransition(false);
-    }, 500);
+    }, 200);
   }, [colorGradient]);
 
   return (
@@ -130,6 +137,8 @@ function App() {
             song={currentSong}
             currentPlaylist={currentPlaylist}
             playSong={playSong}
+            audioRef={audioRef}
+            albumArtRef={albumArtRef}
           />
         )}
         {isLoading && <Loader />}

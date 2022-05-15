@@ -4,8 +4,13 @@ import SongProgress from "../SongProgress";
 import AudioPlayer from "../AudioPlayer";
 import "./style.css";
 
-export default function Index({ song, currentPlaylist, playSong, getColors }) {
-  const audioRef = useRef(null);
+export default function Index({
+  song,
+  currentPlaylist,
+  playSong,
+  audioRef,
+  albumArtRef,
+}) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [url, setURL] = useState("");
   const [isMuted, setIsMuted] = useState(false);
@@ -34,8 +39,6 @@ export default function Index({ song, currentPlaylist, playSong, getColors }) {
     const nextSongIndex = currentSongIndex + 1;
     playSong(currentPlaylist.songs[nextSongIndex]);
     setURL(currentPlaylist.songs[nextSongIndex].url);
-    audioRef.current.currentTime = 0;
-    audioRef.current.play();
   });
   const playPreviousSong = () => {
     const currentSongIndex = currentPlaylist.songs.findIndex(
@@ -44,8 +47,6 @@ export default function Index({ song, currentPlaylist, playSong, getColors }) {
     const prevSongIndex = currentSongIndex - 1;
     playSong(currentPlaylist.songs[prevSongIndex]);
     setURL(currentPlaylist.songs[prevSongIndex].url);
-    audioRef.current.currentTime = 0;
-    audioRef.current.play();
   };
 
   useEffect(() => {
@@ -79,7 +80,7 @@ export default function Index({ song, currentPlaylist, playSong, getColors }) {
       </div>
       <div className="song-artist">{song.artist}</div>
       <div className="song-cover-art">
-        <img src={song.photo} alt={song.title} />
+        <img ref={albumArtRef} src={song.photo} alt={song.title} />
       </div>
       <SongProgress progress={progress} />
       <PlayerControls
